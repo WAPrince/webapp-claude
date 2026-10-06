@@ -1,0 +1,34 @@
+== Basic Spring Web Application
+
+create keypair
+keytool -genkeypair \
+ -alias springboot2 \
+ -keyalg RSA \
+ -keysize 2048 \
+ -storetype PKCS12 \
+ -keystore keystore2.p12 \
+ -validity 3650 \
+ -storepass password
+
+Call service ( -k means --insecure, no certificate check )
+curl -X POST https://localhost:8443/api/process -k
+
+
+Call service endpoints in a safe manner - with private and public keys
+Prerequisites:
+first: extract certificate including public key:
+keytool -exportcert \
+  -alias springboot2 \
+  -keystore keystore2.p12 \
+  -storepass password \
+  -rfc \
+  -file springboot2.crt
+
+check certificate:
+  openssl x509 -in springboot2.crt -text -noout
+
+Finally, call endpoints
+GET
+curl -v --cacert ./springboot2.crt https://127.0.0.1:8443/api/greeting
+POST
+curl -v -X POST --cacert ./springboot2.crt https://127.0.0.1:8443/api/process
