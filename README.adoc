@@ -10,9 +10,20 @@ keytool -genkeypair \
  -validity 3650 \
  -storepass password
 
+
+Start Postgres Docker container:
+docker run --name postgres \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=postgres \
+  -e POSTGRES_DB=mydb \
+  -p 5432:5432 \
+  -d postgres:17
+
+
+
+
 Call service ( -k means --insecure, no certificate check )
 curl -X POST https://localhost:8443/api/process -k
-
 
 Call service endpoints in a safe manner - with private and public keys
 Prerequisites:
