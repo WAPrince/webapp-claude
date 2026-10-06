@@ -16,7 +16,9 @@
 package com.example.restservice.greeting;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -36,20 +38,19 @@ public class GreetingControllerTests {
 	private MockMvc mockMvc;
 
 
-	//@Test
-	public void noParamGreetingShouldReturnDefaultMessage() throws Exception {
-
-		this.mockMvc.perform(get("/greeting"))
-				.with(csrf())
-				.andDo(print()).andExpect(status().isOk())
-				.andExpect(jsonPath("$.content").value("Hello, World!"));
-	}
-	//@Test
+	@Test
 	public void paramGreetingShouldReturnTailoredMessage() throws Exception {
 
-		this.mockMvc.perform(get("/greeting").param("name", "Spring Community"))
+		this.mockMvc.perform(get("/api/greeting").param("name", "Spring Community"))
 				.andDo(print()).andExpect(status().isOk())
 				.andExpect(jsonPath("$.content").value("Hello, Spring Community!"));
 	}
-	*/
+
+	@Test
+	public void processShouldReturnConfirmation() throws Exception {
+
+		this.mockMvc.perform(post("/api/process"))
+				.andDo(print()).andExpect(status().isOk())
+				.andExpect(content().string("process called!"));
+	}
 }
