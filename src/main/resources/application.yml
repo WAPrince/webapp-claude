@@ -5,8 +5,9 @@ server.ssl.key-store-password: password
 server.ssl.key-store-type: PKCS12
 server.ssl.key-alias: springboot2
 
-spring.datasource.url: jdbc:postgresql://localhost:5432/mydb
-spring.datasource.username: ${DB_USERNAME:postgres}
-spring.datasource.password: ${DB_PASSWORD:postgres}
+spring.datasource.url: jdbc:postgresql://localhost:5433/postgres?sslmode=disable
+spring.datasource.username: postgres
+spring.datasource.password: mysecretpassword
 spring.jpa.hibernate.ddl-auto: update
 spring.jpa.open-in-view: false
+spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
