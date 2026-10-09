@@ -9,9 +9,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.validation.annotation.Validated;
 
+@Validated
 @Entity
 @Table(name = "greeting")
 public class GreetingEntity {
@@ -28,9 +31,12 @@ public class GreetingEntity {
 	@Column(name = "updated_at", nullable = false)
 	private Instant updatedAt;
 
+
+	@Size(max = 100)
 	@Column(name = "user_id", nullable = false)
 	private String userId;
 
+	@Size(max = 100)
 	@Column(name = "text", nullable = false, length = 1000)
 	private String text;
 

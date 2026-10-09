@@ -1,3 +1,8 @@
+LF adjustment:
+git config --global core.autocrlf true
+see .gitattributes
+
+
 == Basic Spring Web Application
 
 create keypair
@@ -12,14 +17,7 @@ keytool -genkeypair \
 
 
 Start Postgres Docker container:
-docker run --name postgres \
-  -e POSTGRES_USER=postgres \
-  -e POSTGRES_PASSWORD=postgres \
-  -e POSTGRES_DB=mydb \
-  -p 5432:5432 \
-  -d postgres:17
-
-
+$ docker run --name my-postgres3 -e POSTGRES_PASSWORD=mysecretpassword -p 5433:5432 -v pgdata:/var/lib/postgresql/data -d postgres
 
 
 Call service ( -k means --insecure, no certificate check )
